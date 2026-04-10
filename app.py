@@ -14,9 +14,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap');
-
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
 :root {
     --green: #00ff88;
     --green2: #00cc6a;
@@ -34,7 +32,6 @@ st.markdown("""
     --ink3: #444;
     --mono: 'JetBrains Mono', monospace;
 }
-
 html, body, [data-testid="stAppViewContainer"] {
     background: var(--bg) !important;
     color: var(--ink) !important;
@@ -49,7 +46,6 @@ section[data-testid="stSidebar"] { display: none !important; }
 footer { display: none !important; }
 #MainMenu { display: none !important; }
 .block-container { padding: 0 !important; max-width: 100% !important; }
-
 .scan-header {
     border-bottom: 1px solid var(--border2);
     padding: 1.5rem 3rem;
@@ -61,7 +57,6 @@ footer { display: none !important; }
 .scan-logo { font-family: var(--mono); font-size: 0.8rem; color: var(--green); letter-spacing: 0.2em; text-transform: uppercase; }
 .scan-logo span { color: var(--ink3); }
 .scan-status { font-family: var(--mono); font-size: 0.7rem; color: var(--ink3); letter-spacing: 0.08em; }
-
 .scan-hero {
     padding: 4rem 3rem 3rem;
     text-align: center;
@@ -79,9 +74,7 @@ footer { display: none !important; }
 .hero-title { font-family: var(--mono); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
 .hero-title .accent { color: var(--green); }
 .hero-sub { font-family: var(--mono); font-size: 0.8rem; color: var(--ink2); margin-bottom: 3rem; letter-spacing: 0.04em; }
-
 .scan-form-container { max-width: 720px; margin: 0 auto; padding: 0 2rem 3rem; }
-
 .metrics-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -98,7 +91,6 @@ footer { display: none !important; }
 .metric-val.low { color: var(--green); }
 .metric-val.zero { color: var(--ink3); }
 .metric-label { font-family: var(--mono); font-size: 0.6rem; color: var(--ink3); letter-spacing: 0.14em; text-transform: uppercase; }
-
 .terminal-block { margin: 0 3rem 2rem; border: 1px solid var(--border2); background: var(--bg2); overflow: hidden; }
 .terminal-bar { background: var(--bg3); border-bottom: 1px solid var(--border2); padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.5rem; }
 .terminal-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border2); }
@@ -112,7 +104,6 @@ footer { display: none !important; }
 .t-error { color: var(--red); }
 .t-warn { color: var(--orange); }
 .t-info { color: var(--yellow); }
-
 .findings-container { margin: 0 3rem 2rem; }
 .finding-row { border: 1px solid var(--border2); margin-bottom: 2px; background: var(--bg2); }
 .finding-row:hover { border-color: var(--green3); }
@@ -136,15 +127,12 @@ footer { display: none !important; }
 .impact-box { background: rgba(255,68,68,0.05); border-left: 2px solid var(--red); padding: 0.75rem 1rem; margin-bottom: 1rem; }
 .attack-box { background: rgba(255,136,0,0.05); border-left: 2px solid var(--orange); padding: 0.75rem 1rem; margin-bottom: 1rem; }
 .fix-box { background: rgba(0,255,136,0.05); border-left: 2px solid var(--green); padding: 0.75rem 1rem; }
-
 .section-header { margin: 0 3rem 1rem; display: flex; align-items: center; gap: 1rem; }
 .section-title { font-family: var(--mono); font-size: 0.65rem; color: var(--green); letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
 .section-line { flex: 1; height: 1px; background: var(--border2); }
-
 .repo-card { margin: 0 3rem 3rem; border: 1px solid var(--border2); background: var(--bg2); padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
 .repo-field label { font-family: var(--mono); font-size: 0.6rem; color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
 .repo-field span { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); }
-
 div[data-testid="stSelectbox"] > div,
 div[data-testid="stTextInput"] > div > div > input,
 div[data-testid="stMultiSelect"] > div {
@@ -234,7 +222,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 SEVERITY_ORDER = {"Critical": 0, "High": 1, "Medium": 2, "Low": 3}
 SEV_CLASS = {"Critical": "sev-critical", "High": "sev-high", "Medium": "sev-medium", "Low": "sev-low"}
-SEV_METRIC = {"Critical": "critical", "High": "high", "Medium": "medium", "Low": "low"}
 
 st.markdown("<div style='margin-top: 2rem'></div>", unsafe_allow_html=True)
 
@@ -368,19 +355,19 @@ if scan_clicked:
                 </div>
                 """, unsafe_allow_html=True)
 
-                findings_html = '<div class="findings-container">'
+                st.markdown('<div class="findings-container">', unsafe_allow_html=True)
+
                 for f in filtered:
                     file_url = f.get("file_url", "#")
                     detection = f.get("detection_method", "pattern")
                     entropy_score = f.get("entropy_score")
                     entropy_display = f" &nbsp; entropy: {entropy_score}" if entropy_score else ""
                     gh_link = f"<a href='{file_url}' style='font-family:JetBrains Mono;font-size:0.65rem;color:#00ff88;margin-top:0.75rem;display:inline-block;' target='_blank'>View on GitHub &rarr;</a>" if file_url != "#" else ""
-
                     impact = f.get("impact", "")
                     attack = f.get("attack", "")
                     remediation = f.get("remediation", "")
 
-                    findings_html += f"""
+                    st.markdown(f"""
                     <div class="finding-row">
                         <div class="finding-header">
                             <span class="sev-badge {SEV_CLASS[f['severity']]}">{f['severity']}</span>
@@ -413,9 +400,9 @@ if scan_clicked:
                             </div>
                         </div>
                     </div>
-                    """
-                findings_html += '</div>'
-                st.markdown(findings_html, unsafe_allow_html=True)
+                    """, unsafe_allow_html=True)
+
+                st.markdown('</div>', unsafe_allow_html=True)
 
                 st.markdown("<div style='margin: 1rem 3rem 0;'>", unsafe_allow_html=True)
                 df = pd.DataFrame(filtered)
